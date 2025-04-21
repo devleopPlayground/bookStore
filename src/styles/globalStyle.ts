@@ -20,6 +20,6 @@ export const GlobalStyle = createGlobalStyle<Props>`
   }
 
   * {
-    color: ${({ themeName }) => (themeName == "light" ? "white" : "black")}
+    color: ${({ themeName }) => (themeName == "light" ? "black" : "white")}
   }
 `;

@@ -71,7 +71,7 @@ const button = {
 const buttonScheme = {
   primary: {
     color: "white",
-    backgroundColor: "midnightblur",
+    backgroundColor: "midnightblue",
   },
   normal: {
     color: "black",
