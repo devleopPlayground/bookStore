@@ -1,7 +1,7 @@
 export type BookType = {
   id: number | null;
   name: string;
-  imgUrl: number;
+  imgUrl: string;
   category_id: number;
   form: string;
   isbn: string;

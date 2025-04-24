@@ -9,6 +9,7 @@ export const createClient = (config?: AxiosRequestConfig) => {
     timeout: DEFAULT_TIMEOUT,
     headers: {
       "content-type": "application/json",
+      Authorization: localStorage.getItem("token"),
     },
     ...config,
   });
@@ -18,6 +19,12 @@ export const createClient = (config?: AxiosRequestConfig) => {
       return response;
     },
     (error) => {
+      if (error.response.status == 401) {
+        localStorage.removeItem("token");
+        window.location.href = "/login";
+        return;  
+      }
+
       return Promise.reject(error);
     }
   );

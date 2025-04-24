@@ -1,17 +1,19 @@
-import styled from "styled-components";
 import Title from "../components/common/Title";
 import Input from "../components/common/Input";
 import Button from "../components/common/Button";
 import { Link, useNavigate } from "react-router-dom";
-import { signup } from "../api/auth.api";
+import { SignupStyle } from "./Signup";
+import { login } from "../api/auth.api";
+import { useAuthStore } from "../store/auth.store";
 
-export type SignupProps = {
+export type LoginProps = {
   email: string;
   password: string;
 };
 
-const Signup = () => {
+const Login = () => {
   const navigate = useNavigate();
+  const { isLoggedIn, storeLogin } = useAuthStore();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,16 +25,23 @@ const Signup = () => {
 
     if (!email || !password) return;
 
-    signup({ email, password }).then(() => {
-      alert("회원가입이 완료되었습니다!");
+    login({ email, password }).then(
+      ({ token }) => {
+        alert("로그인이 완료되었습니다!");
 
-      navigate("/login");
-    });
+        storeLogin(token);
+
+        navigate("/");
+      },
+      (error) => {
+        alert("로그인에 실패했습니다.");
+      }
+    );
   };
 
   return (
     <>
-      <Title size="large">회원가입</Title>
+      <Title size="large">로그인</Title>
       <SignupStyle>
         <form onSubmit={onSubmit}>
           <fieldset>
@@ -43,7 +52,7 @@ const Signup = () => {
           </fieldset>
           <fieldset>
             <Button type="submit" size="medium" scheme="primary">
-              회원가입
+              로그인
             </Button>
           </fieldset>
           <div className="info">
@@ -55,30 +64,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
-
-export const SignupStyle = styled.div`
-  max-width: ${({ theme }) => theme.layout.width.small};
-  margin: 80px auto;
-
-  fieldset {
-    border: 0;
-    padding: 0 0 8px 0;
-    .error-text {
-      color: red;
-    }
-  }
-
-  input {
-    width: 100%;
-  }
-
-  button {
-    width: 100%;
-  }
-
-  .info {
-    text-align: center;
-    padding: 16px 0 0 0;
-  }
-`;
+export default Login;
