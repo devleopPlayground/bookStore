@@ -1,7 +1,7 @@
 export type BookType = {
   id: number | null;
-  name: string;
-  imgUrl: string;
+  title: string;
+  imgUrl: number;
   category_id: number;
   form: string;
   isbn: string;
@@ -16,6 +16,6 @@ export type BookType = {
 };
 
 export type BookDetailType = {
-  categoryName: string;
+  category_name: string;
   liked: boolean;
 } & BookType;

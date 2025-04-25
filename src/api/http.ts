@@ -22,7 +22,7 @@ export const createClient = (config?: AxiosRequestConfig) => {
       if (error.response.status == 401) {
         localStorage.removeItem("token");
         window.location.href = "/login";
-        return;  
+        return;
       }
 
       return Promise.reject(error);
