@@ -22,7 +22,7 @@ const Header = () => {
               <Link
                 to={
                   category.category_id == null
-                    ? "books"
+                    ? "/books"
                     : `/books?category_id=${category.category_id}`
                 }
               >

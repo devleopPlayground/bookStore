@@ -18,7 +18,7 @@ const Title = ({ children, size, color, ...props }: TitleProps) => {
 
 export default Title;
 
-const TitleStyle = styled.div<Omit<TitleProps, "children">>`
+const TitleStyle = styled.h1<Omit<TitleProps, "children">>`
   font-size: ${({ theme, size }) => theme.heading[size].fontSize};
   color: ${({ theme, color }) =>
     color ? theme.color[color] : theme.color.primary};

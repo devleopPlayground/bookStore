@@ -1,6 +1,5 @@
 import Layout from "./components/layout/Layout";
 import Home from "./pages/Home";
-// import ThemeSwitcher from "./components/common/header/ThemeSwitcher";
 import { BookStoreThemeProvider } from "./context/themeContext";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Error from "./components/common/Error";
@@ -9,6 +8,9 @@ import ResetPassword from "./pages/ResetPassword";
 import Login from "./pages/Login";
 import Books from "./pages/Books";
 import BookDetail from "./pages/BookDetail";
+import Cart from "./pages/Cart";
+import Order from "./pages/Order";
+import OrderList from "./pages/OrderList";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +63,30 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <BookDetail />
+      </Layout>
+    ),
+  },
+  {
+    path: "/cart",
+    element: (
+      <Layout>
+        <Cart />
+      </Layout>
+    ),
+  },
+  {
+    path: "/order",
+    element: (
+      <Layout>
+        <Order />
+      </Layout>
+    ),
+  },
+  {
+    path: "/orderlist",
+    element: (
+      <Layout>
+        <OrderList />
       </Layout>
     ),
   },
