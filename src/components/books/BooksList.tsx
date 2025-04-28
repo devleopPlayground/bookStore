@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import BookItem from "./BookItem";
-import type { BookType } from "../../models/book.model";
+import type { BookType } from "@models/book.model";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { QUERYSTRING } from "../../constants/queryString";
+import { QUERYSTRING } from "@constants/queryString";
 import type { ViewModeType } from "./BooksViewSwitcher";
 
 type BookListProps = {

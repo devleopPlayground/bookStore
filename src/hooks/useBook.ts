@@ -25,15 +25,6 @@ const useBook = (bookId: string) => {
     if (book.liked) {
       fetchUnLikeBook(Number(book.id)).then((response) => {
         setBook({ ...book, liked: false, likes: book.likes - 1 });
-        // setBook((prevState) =>
-        //   prevState
-        //     ? {
-        //         ...prevState,
-        //         liked: false,
-        //         likes: book.likes - 1,
-        //       }
-        //     : prevState
-        // );
       });
     } else {
       fetchLikeBook(Number(book.id)).then((response) => {

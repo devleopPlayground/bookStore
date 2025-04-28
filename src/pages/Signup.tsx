@@ -2,8 +2,8 @@ import styled from "styled-components";
 import Title from "../components/common/Title";
 import Input from "../components/common/Input";
 import Button from "../components/common/Button";
-import { Link, useNavigate } from "react-router-dom";
-import { signup } from "../api/auth.api";
+import { Link } from "react-router-dom";
+import useAuth from "@src/hooks/useAuth";
 
 export type SignupProps = {
   email: string;
@@ -11,7 +11,7 @@ export type SignupProps = {
 };
 
 const Signup = () => {
-  const navigate = useNavigate();
+  const { userSignUp } = useAuth();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,11 +23,7 @@ const Signup = () => {
 
     if (!email || !password) return;
 
-    signup({ email, password }).then(() => {
-      alert("회원가입이 완료되었습니다!");
-
-      navigate("/login");
-    });
+    userSignUp({ email, password });
   };
 
   return (

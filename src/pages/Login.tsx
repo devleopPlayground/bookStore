@@ -1,10 +1,9 @@
 import Title from "../components/common/Title";
 import Input from "../components/common/Input";
 import Button from "../components/common/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { SignupStyle } from "./Signup";
-import { login } from "../api/auth.api";
-import { useAuthStore } from "../store/auth.store";
+import useAuth from "@src/hooks/useAuth";
 
 export type LoginProps = {
   email: string;
@@ -12,8 +11,7 @@ export type LoginProps = {
 };
 
 const Login = () => {
-  const navigate = useNavigate();
-  const { isLoggedIn, storeLogin } = useAuthStore();
+  const { userLogin } = useAuth();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,18 +23,7 @@ const Login = () => {
 
     if (!email || !password) return;
 
-    login({ email, password }).then(
-      ({ token }) => {
-        alert("로그인이 완료되었습니다!");
-
-        storeLogin(token);
-
-        navigate("/");
-      },
-      (error) => {
-        alert("로그인에 실패했습니다.");
-      }
-    );
+    userLogin({ email, password });
   };
 
   return (
