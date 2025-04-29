@@ -19,3 +19,16 @@ export type BookDetailType = {
   category_name: string;
   liked: boolean;
 } & BookType;
+
+export type BookReviewItemType = {
+  id: number;
+  userName: string;
+  content: string;
+  createdAt: string;
+  score: number;
+};
+
+export type BookReviewItemPostType = Pick<
+  BookReviewItemType,
+  "content" | "score"
+>;

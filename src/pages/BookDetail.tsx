@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import EllipsisBox from "../components/common/EllipsisBox";
 import LikeButton from "../components/book/LikeButton";
 import AddCart from "../components/book/AddCart";
+import BookReview from "@src/components/book/BookReview";
 
 const bookInfoList = [
   {
@@ -50,9 +51,13 @@ const bookInfoList = [
 
 const BookDetail = () => {
   const { bookId } = useParams();
-  const { book, likeToggle } = useBook(String(bookId));
+  const { book, likeToggle, reviews, onClickCreateReview } = useBook(
+    String(bookId)
+  );
 
   if (!book) return null;
+
+  console.log("reviews", reviews);
 
   return (
     <BookDetailStyle>
@@ -88,6 +93,12 @@ const BookDetail = () => {
 
         <Title size="medium">목차</Title>
         <p>{book.contents}</p>
+
+        <Title size="medium">리뷰</Title>
+        <BookReview
+          reviews={reviews}
+          onClickCreateReview={onClickCreateReview}
+        />
       </div>
     </BookDetailStyle>
   );

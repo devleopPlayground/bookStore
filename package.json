@@ -16,6 +16,7 @@
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.8.4",
     "dayjs": "^1.11.13",
+    "msw": "^2.7.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
+    "@faker-js/faker": "^9.7.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
@@ -48,5 +50,10 @@
     "vite": "^6.3.2",
     "vitest": "^3.1.1"
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  }
 }

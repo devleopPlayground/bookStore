@@ -1,17 +1,26 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   fetchBookDetail,
   fetchLikeBook,
   fetchUnLikeBook,
 } from "./../api/books.api";
 import { useEffect, useState } from "react";
-import type { BookDetailType } from "../models/book.model";
+import type {
+  BookDetailType,
+  BookReviewItemPostType,
+  BookReviewItemType,
+} from "../models/book.model";
 import { useAuthStore } from "../store/auth.store";
 import { addCart } from "../api/carts.api";
+import { createReview, fetchBookReview } from "@src/api/review.api";
+import dayjs from "dayjs";
+import "dayjs/locale/ko";
 
 const useBook = (bookId: string) => {
   const { isLoggedIn } = useAuthStore();
   const [book, setBook] = useState<BookDetailType | null>(null);
   const [cartAdded, setCartAdded] = useState(false);
+  const [reviews, setReviews] = useState<BookReviewItemType[]>([]);
 
   const likeToggle = () => {
     if (!isLoggedIn) {
@@ -53,9 +62,37 @@ const useBook = (bookId: string) => {
     fetchBookDetail(bookId).then((book) => {
       setBook(book);
     });
+
+    fetchBookReview(bookId).then((reviews) => {
+      setReviews(reviews);
+    });
   }, [bookId]);
 
-  return { book, likeToggle, addToCart, cartAdded };
+  const onClickCreateReview = (data: BookReviewItemPostType) => {
+    if (!book) return;
+
+    createReview(String(book.id), data).then((response) => {
+      setReviews((prevState) => [
+        ...prevState,
+        {
+          id: prevState.length + 1,
+          userName: "Brian",
+          content: data.content,
+          createdAt: dayjs().format(),
+          score: data.score,
+        },
+      ]);
+    });
+  };
+
+  return {
+    book,
+    reviews,
+    likeToggle,
+    addToCart,
+    cartAdded,
+    onClickCreateReview,
+  };
 };
 
 export default useBook;
