@@ -15,12 +15,15 @@ import { addCart } from "../api/carts.api";
 import { createReview, fetchBookReview } from "@src/api/review.api";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
+import useToast from "./useToast";
 
 const useBook = (bookId: string) => {
   const { isLoggedIn } = useAuthStore();
   const [book, setBook] = useState<BookDetailType | null>(null);
   const [cartAdded, setCartAdded] = useState(false);
   const [reviews, setReviews] = useState<BookReviewItemType[]>([]);
+
+  const { showToast } = useToast();
 
   const likeToggle = () => {
     if (!isLoggedIn) {
@@ -34,10 +37,12 @@ const useBook = (bookId: string) => {
     if (book.liked) {
       fetchUnLikeBook(Number(book.id)).then((response) => {
         setBook({ ...book, liked: false, likes: book.likes - 1 });
+        showToast("좋아요가 취소되었습니다.");
       });
     } else {
       fetchLikeBook(Number(book.id)).then((response) => {
         setBook({ ...book, liked: true, likes: book.likes + 1 });
+        showToast("좋아요에 성공했습니다.");
       });
     }
   };

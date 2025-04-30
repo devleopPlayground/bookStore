@@ -10,6 +10,7 @@ import EllipsisBox from "../components/common/EllipsisBox";
 import LikeButton from "../components/book/LikeButton";
 import AddCart from "../components/book/AddCart";
 import BookReview from "@src/components/book/BookReview";
+import { Tab, Tabs } from "@src/components/common/Tabs";
 
 const bookInfoList = [
   {
@@ -88,17 +89,23 @@ const BookDetail = () => {
         </div>
       </header>
       <div className="content">
-        <Title size="medium">상세 설명</Title>
-        <EllipsisBox>{book.detail}</EllipsisBox>
-
-        <Title size="medium">목차</Title>
-        <p>{book.contents}</p>
-
-        <Title size="medium">리뷰</Title>
-        <BookReview
-          reviews={reviews}
-          onClickCreateReview={onClickCreateReview}
-        />
+        <Tabs>
+          <Tab title="상세 설명">
+            <Title size="medium">상세 설명</Title>
+            <EllipsisBox>{book.detail}</EllipsisBox>
+          </Tab>
+          <Tab title="목차">
+            <Title size="medium">목차</Title>
+            <p>{book.contents}</p>
+          </Tab>
+          <Tab title="리뷰">
+            <Title size="medium">리뷰</Title>
+            <BookReview
+              reviews={reviews}
+              onClickCreateReview={onClickCreateReview}
+            />
+          </Tab>
+        </Tabs>
       </div>
     </BookDetailStyle>
   );
