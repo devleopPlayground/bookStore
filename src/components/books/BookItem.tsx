@@ -35,7 +35,7 @@ const BookItem = ({ book, viewMode }: BookItemProps) => {
 
 export default BookItem;
 
-const BookItemStyle = styled.div<Pick<BookItemProps, "viewMode">>`
+export const BookItemStyle = styled.div<Pick<BookItemProps, "viewMode">>`
   a {
     display: flex;
     flex-direction: ${({ viewMode }) =>

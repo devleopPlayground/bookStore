@@ -30,8 +30,10 @@ const useBooksInfinite = () => {
     queryFn: ({ pageParam = 1 }) => getBooks({ pageParam }),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
+      if (!lastPage || !lastPage.pagination) return null;
+
       const isLastPage =
-        Math.ceil(lastPage.pagination.totalCount / LIMIT) ==
+        Math.ceil(lastPage.pagination.totalCount / LIMIT) ===
         lastPage.pagination.currentPage;
 
       return isLastPage ? null : lastPage.pagination.currentPage + 1;

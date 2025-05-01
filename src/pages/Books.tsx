@@ -12,7 +12,7 @@ const Books = () => {
     useBooksInfinite();
 
   const loadMore = () => {
-    if (!hasNextPage) return;
+    if (!hasNextPage || books.length < 1) return;
 
     fetchNextPage();
   };

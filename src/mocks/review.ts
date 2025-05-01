@@ -28,3 +28,9 @@ export const createReview = http.post(URL, () => {
     }
   );
 });
+
+export const reviewsForMain = http.get("http://localhost:8090/reviews", () => {
+  return HttpResponse.json(mockReviewsData, {
+    status: 200,
+  });
+});
