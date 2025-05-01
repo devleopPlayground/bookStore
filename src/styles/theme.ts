@@ -10,6 +10,7 @@ export type HeadingSize = "large" | "medium" | "small";
 export type ButtonSize = "large" | "medium" | "small";
 export type ButtonScheme = "primary" | "normal" | "like";
 export type LayoutWidth = "large" | "medium" | "small";
+export type MediaQuery = "mobile" | "tablet" | "desktop";
 
 export interface Theme {
   name: ThemeName;
@@ -38,6 +39,9 @@ export interface Theme {
     width: {
       [key in LayoutWidth]: string;
     };
+  };
+  mediaQuery: {
+    [key in MediaQuery]: string;
   };
 }
 
@@ -95,7 +99,20 @@ const layout = {
   },
 };
 
-const settings = { heading, button, buttonScheme, borderRadius, layout };
+const mediaQuery = {
+  mobile: "(max-width: 768px)", // 768px 이하에서 동작
+  desktop: "(max-width: 1024px)", // 1024px 이하에서 동작
+  tablet: "(min-width: 1025px)", // 1025px 이상에서 동작
+};
+
+const settings = {
+  heading,
+  button,
+  buttonScheme,
+  borderRadius,
+  layout,
+  mediaQuery,
+};
 
 export const light: Theme = {
   name: "light",
@@ -159,6 +176,9 @@ declare module "styled-components" {
       width: {
         [key in LayoutWidth]: string;
       };
+    };
+    mediaQuery: {
+      [key in MediaQuery]: string;
     };
   }
 }

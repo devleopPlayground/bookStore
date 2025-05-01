@@ -1,22 +1,36 @@
-import { FaRegUser, FaSignInAlt, FaUserCircle } from "react-icons/fa";
+import {
+  FaAngleRight,
+  FaBars,
+  FaRegUser,
+  FaSignInAlt,
+  FaUserCircle,
+} from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import useCategory from "../../hooks/useCategory";
 import { useAuthStore } from "../../store/auth.store";
 import Dropdown from "./Dropdown";
+import { useState } from "react";
 
 const Header = () => {
   const { category } = useCategory();
   const { isLoggedIn, storeLogout } = useAuthStore();
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   return (
-    <HeaderStyle>
+    <HeaderStyle isMobileOpen={isMobileOpen}>
       <LogoStyle>
         <Link to="/" style={{ textDecoration: "none" }}>
           로고
         </Link>
       </LogoStyle>
       <nav className="category">
+        <button
+          className="menu-button"
+          onClick={() => setIsMobileOpen(!isMobileOpen)}
+        >
+          {isMobileOpen ? <FaAngleRight /> : <FaBars />}
+        </button>
         <ul>
           {category.map((category) => (
             <li key={category.category_id}>
@@ -69,7 +83,7 @@ const Header = () => {
 
 export default Header;
 
-const HeaderStyle = styled.header`
+const HeaderStyle = styled.header<{ isMobileOpen: boolean }>`
   width: 100%;
   margin: 0 auto;
   max-width: ${({ theme }) => theme.layout.width.large};
@@ -81,6 +95,10 @@ const HeaderStyle = styled.header`
   border-bottom: 1px solid ${({ theme }) => theme.color.background};
 
   .category {
+    .menu-button {
+      display: none;
+    }
+
     ul {
       display: flex;
       gap: 32px;
@@ -134,6 +152,47 @@ const HeaderStyle = styled.header`
       }
     }
   }
+
+  @media only screen and (${({ theme }) => theme.mediaQuery.mobile}) {
+    header {
+      height: 52px;
+    }
+
+    .category {
+      position: absolute;
+      right: 56px;
+
+      .menu-button {
+        display: flex;
+        position: absolute;
+        background-color: white;
+        border: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.5rem;
+        cursor: pointer;
+        right: ${({ isMobileOpen }) => (isMobileOpen ? "150px" : "20px")};
+      }
+
+      ul {
+        position: fixed;
+        top: 0;
+        right: ${({ isMobileOpen }) => (isMobileOpen ? "0" : "-100%")};
+        transition: right 0.3s ease-in-out;
+        width: 60%;
+        height: 100dvh;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        margin: 0;
+        padding: 24px;
+        z-index: 3;
+
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+    }
+  }
 `;
 
 const LogoStyle = styled.h1`
@@ -147,4 +206,11 @@ const LogoStyle = styled.h1`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media only screen and (${({ theme }) => theme.mediaQuery.mobile}) {
+    width: 80px;
+    height: 35px;
+    font-size: 20px;
+    margin-left: 15px;
+  }
 `;

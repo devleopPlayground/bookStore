@@ -4,10 +4,14 @@ import MainBest from "@src/components/main/MainBest";
 import MainReview from "@src/components/main/MainReview";
 import NewBooks from "@src/components/main/NewBooks";
 import useMain from "@src/hooks/useMain";
+import useMediaQuery from "@src/hooks/useMediaQuery";
 import styled from "styled-components";
 
 const Home = () => {
   const { reviews, newBooks, bestBooks, banners } = useMain();
+  const { isMobile } = useMediaQuery();
+
+  console.log(isMobile);
 
   return (
     <HomeStyle>
